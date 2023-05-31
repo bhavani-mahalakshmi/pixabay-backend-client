@@ -1,13 +1,13 @@
 import math, requests
 from django.http import JsonResponse, HttpResponseServerError, HttpResponseBadRequest
 
-from pixabay.config import PIXABAY_API_KEY, NO_OF_IMAGES_PER_PAGE
+from pixabay.config import PIXABAY_API_KEY, NO_OF_IMAGES_PER_PAGE, PIXABAY_BASE_URL
 
 def image_list(request):
     search_query = request.GET.get('q', '')
     page = int(request.GET.get('page', 1))
     
-    url = f"https://pixabay.com/api/?key={PIXABAY_API_KEY}&q={search_query}&page={page}&per_page={NO_OF_IMAGES_PER_PAGE}"
+    url = f"{PIXABAY_BASE_URL}?key={PIXABAY_API_KEY}&q={search_query}&page={page}&per_page={NO_OF_IMAGES_PER_PAGE}"
     response = requests.get(url)
     if response.status_code != 200:
         return HttpResponseServerError("An error occurred while fetching images list.")
@@ -37,7 +37,7 @@ def image_detail(request, image_id):
     if not image_id:
         return HttpResponseBadRequest("Image ID is required.")
     
-    url = f"https://pixabay.com/api/?key={PIXABAY_API_KEY}&id={image_id}"
+    url = f"{PIXABAY_BASE_URL}?key={PIXABAY_API_KEY}&id={image_id}"
     response = requests.get(url)
     if response.status_code != 200:
         return HttpResponseServerError("An error occurred while fetching image details.")
