@@ -20,5 +20,6 @@ from pixabay import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('image/list/', views.image_list, name='image_list')
+    path('image/list/', views.image_list, name='image_list'),
+    path('image/<int:image_id>/', views.image_detail, name='image_detail')
 ]

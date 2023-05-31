@@ -32,3 +32,24 @@ def image_list(request):
         "images": res_images
     }
     return JsonResponse(result)
+
+def image_detail(request, image_id):
+    url = f"https://pixabay.com/api/?key={PIXABAY_API_KEY}&id={image_id}"
+    response = requests.get(url)
+    if response.status_code != 200:
+        return HttpResponseServerError("An error occurred while fetching image details.")
+    
+    data = response.json()
+    image = data['hits'][0]
+    
+    image_details = {
+        "user": {
+            "name": image.get("user"),
+            "profile_image": image.get("userImageURL"),
+            "id": image.get("id")
+        },
+        "tags": image.get("tags"),
+        "url": image.get("imageURL")
+    }
+    
+    return JsonResponse(image_details)
