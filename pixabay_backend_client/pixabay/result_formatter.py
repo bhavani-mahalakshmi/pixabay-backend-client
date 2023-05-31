@@ -1,5 +1,5 @@
 import math
-from config import NO_OF_IMAGES_PER_PAGE
+from pixabay.config import NO_OF_IMAGES_PER_PAGE
 
 def format_images_list(data):
     if 'hits' in data:
