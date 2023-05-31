@@ -9,7 +9,7 @@ This repository contains a backend client that serves as a datasource for a web 
 ## API
 1. List images: `/image/list`
 
-This api will list the images with optional conditions.
+This endpoint will list the images with optional conditions.
 
    a. `/image/list` will list the first 10 images(page 1) on pixabay without any condition
 
@@ -21,7 +21,7 @@ This api will list the images with optional conditions.
 
 2. Image detail: `/image/<image_id>`
 
-This api will return the details of the image with the given ID. If the ID is not passed or invalid, the api will throw a Bad request error with the corresponsing error message. 
+This endpoint will return the details of the image with the given ID. If the ID is not passed or invalid, the api will throw a Bad request error with the corresponsing error message. 
 
 
 ## Installation
