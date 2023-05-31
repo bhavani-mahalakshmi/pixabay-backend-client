@@ -1,7 +1,8 @@
-import os, math, requests
+import os, requests
 from django.http import JsonResponse, HttpResponseServerError, HttpResponseBadRequest
 
 from pixabay.config import NO_OF_IMAGES_PER_PAGE, PIXABAY_BASE_URL
+from pixabay.result_formatter import format_image_detail, format_images_list
 
 PIXABAY_API_KEY = os.getenv("PIXABAY_API_KEY", "test")
 
@@ -15,23 +16,7 @@ def image_list(request):
         return HttpResponseServerError("An error occurred while fetching images list.")
     
     data = response.json()
-    if 'hits' in data:
-        images = data.get('hits')
-    else:
-        images = []
-    
-    result = {}
-    total_pages = math.ceil(data.get('total') / NO_OF_IMAGES_PER_PAGE)
-    res_images = []
-    for img in images:
-        res_images.append({
-            "id": img.get("id"),
-            "preview_url": img.get("previewURL")
-        })
-    result = {
-        "total_pages": total_pages,
-        "images": res_images
-    }
+    result = format_images_list(data)
     return JsonResponse(result)
 
 def image_detail(request, image_id):
@@ -50,14 +35,6 @@ def image_detail(request, image_id):
     else:
         return HttpResponseBadRequest("Image with ID not found.")
     
-    image_details = {
-        "user": {
-            "name": image.get("user"),
-            "profile_image": image.get("userImageURL"),
-            "id": image.get("id")
-        },
-        "tags": image.get("tags"),
-        "url": image.get("largeImageURL")
-    }
+    image_detail = format_image_detail(image)
     
-    return JsonResponse(image_details)
+    return JsonResponse(image_detail)
