@@ -57,7 +57,7 @@ def image_detail(request, image_id):
             "id": image.get("id")
         },
         "tags": image.get("tags"),
-        "url": image.get("imageURL")
+        "url": image.get("largeImageURL")
     }
     
     return JsonResponse(image_details)
