@@ -1,10 +1,9 @@
-import os
-from django.test import TestCase, Client
+from django.test import TestCase, Client, override_settings
 
+@override_settings(PIXABAY_API_KEY='your_api_key_here')
 class ImageSearchAPITest(TestCase):
     def setUp(self):
         self.client = Client()
-        os.environ["PIXABAY_API_KEY"] = "your_api_key_here"
 
     def test_image_list_endpoint(self):
         response = self.client.get('/image/list')
