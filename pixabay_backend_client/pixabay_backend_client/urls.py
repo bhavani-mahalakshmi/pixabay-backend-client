@@ -16,7 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from pixabay import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('image/list/', views.image_list, name='image_list')
 ]
