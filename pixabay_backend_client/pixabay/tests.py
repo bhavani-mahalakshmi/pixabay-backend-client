@@ -15,3 +15,11 @@ class ImageSearchAPITest(TestCase):
     def test_image_detail_endpoint(self):
         response = self.client.get('/image/2145539/')
         self.assertEqual(response.status_code, 200)
+
+    def test_image_id_not_found_bad_request(self):
+        response = self.client.get('/image/')
+        self.assertEqual(response.status_code, 400)
+
+    def test_image_detail_not_found_bad_request(self):
+        response = self.client.get('/image/1234')
+        self.assertEqual(response.status_code, 400)
