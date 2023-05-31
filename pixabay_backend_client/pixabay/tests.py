@@ -1,5 +1,6 @@
-from django.test import TestCase, Client
+from django.test import TestCase, Client, override_settings
 
+@override_settings(PIXABAY_API_KEY='36900313-f8e256b3a18ea6d023f20e116')
 class ImageSearchAPITest(TestCase):
     def setUp(self):
         self.client = Client()
