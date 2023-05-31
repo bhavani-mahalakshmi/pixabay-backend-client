@@ -1,10 +1,8 @@
-import os, requests
+import requests
 from django.http import JsonResponse, HttpResponseServerError, HttpResponseBadRequest
 
-from pixabay.config import NO_OF_IMAGES_PER_PAGE, PIXABAY_BASE_URL
+from pixabay.config import PIXABAY_API_KEY, NO_OF_IMAGES_PER_PAGE, PIXABAY_BASE_URL
 from pixabay.result_formatter import format_image_detail, format_images_list
-
-PIXABAY_API_KEY = os.getenv("PIXABAY_API_KEY", "test")
 
 def image_list(request):
     try:
