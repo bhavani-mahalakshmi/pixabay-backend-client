@@ -1,5 +1,5 @@
 import math, requests
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseServerError
 
 from pixabay.config import PIXABAY_API_KEY, NO_OF_IMAGES_PER_PAGE
 
@@ -10,6 +10,8 @@ def image_list(request):
     
     url = f"https://pixabay.com/api/?key={PIXABAY_API_KEY}&q={search_query}&page={page}&per_page={NO_OF_IMAGES_PER_PAGE}"
     response = requests.get(url)
+    if response.status_code != 200:
+        return HttpResponseServerError("An error occurred while fetching image data.")
     
     data = response.json()
     if 'hits' in data:
